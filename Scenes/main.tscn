@@ -2,6 +2,7 @@
 
 [ext_resource type="TileSet" uid="uid://cec40n0ec7nc0" path="res://Assets/World/objects(con).tres" id="1_bo1nx"]
 [ext_resource type="PackedScene" uid="uid://caarcur3efri2" path="res://Scenes/Character/player.tscn" id="2_bo1nx"]
+[ext_resource type="PackedScene" uid="uid://dndl01sje1shq" path="res://Scenes/Enemy/slime.tscn" id="3_8gbba"]
 
 [node name="Main" type="Node2D" unique_id=1645981135]
 y_sort_enabled = true
@@ -25,3 +26,6 @@ tile_set = ExtResource("1_bo1nx")
 [node name="Player" parent="." unique_id=282473505 instance=ExtResource("2_bo1nx")]
 y_sort_enabled = true
 position = Vector2(20, 36)
+
+[node name="Slime" parent="." unique_id=5060591 instance=ExtResource("3_8gbba")]
+position = Vector2(248, 140)

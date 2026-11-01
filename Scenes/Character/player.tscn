@@ -497,8 +497,12 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_wwhre"]
 radius = 7.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_q4lci"]
+radius = 15.0
+
 [node name="Player" type="CharacterBody2D" unique_id=282473505]
 position = Vector2(9, 21)
+collision_layer = 3
 script = ExtResource("1_ojo44")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=23601355]
@@ -510,4 +514,16 @@ offset = Vector2(2, -24)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=187549939]
 position = Vector2(1, -12)
 shape = SubResource("CircleShape2D_wwhre")
-metadata/_edit_group_ = true
+
+[node name="Player_hitbox" type="Area2D" parent="." unique_id=988533630]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player_hitbox" unique_id=718382061]
+position = Vector2(1, -17)
+shape = SubResource("CircleShape2D_q4lci")
+
+[node name="Attack_cd" type="Timer" parent="." unique_id=929598132]
+
+[connection signal="area_entered" from="Player_hitbox" to="." method="_on_player_hitbox_area_entered"]
+[connection signal="body_entered" from="Player_hitbox" to="." method="_on_player_hitbox_body_entered"]
+[connection signal="body_exited" from="Player_hitbox" to="." method="_on_player_hitbox_body_exited"]
+[connection signal="timeout" from="Attack_cd" to="." method="_on_attack_cd_timeout"]
