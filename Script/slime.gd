@@ -4,7 +4,7 @@ var speed = 75
 var player_chase = false
 var player
 @onready var slime_animation = $AnimatedSprite2D
-var health = 100
+var health = 3
 var player_inattack_zone = false
 
 
@@ -13,7 +13,7 @@ func _ready():
 	slime()
 func _physics_process(delta):
 	if player_chase == true:
-		deal_damage()
+		death()
 		
 		var direction = player.position - position
 		position += (player.position - position) / speed
@@ -51,9 +51,6 @@ func _on_slime_hitbox_body_exited(body):
 	if body.has_method("player"):
 		player_inattack_zone = false
 		
-func deal_damage():
-	if player_inattack_zone and Global.player_current_attack == true:
-		health -= 10
-		print(health)
-		if health <= 0:
-			self.queue_free()
+func death():
+	if health <= 0:
+		self.queue_free()

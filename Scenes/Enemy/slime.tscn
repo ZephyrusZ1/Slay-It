@@ -287,7 +287,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_htemk"]
-radius = 83.21658
+radius = 266.0921
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_14cdr"]
 radius = 9.055386
@@ -296,6 +296,7 @@ radius = 9.055386
 radius = 14.035668
 
 [node name="Slime" type="CharacterBody2D" unique_id=5060591]
+collision_layer = 3
 script = ExtResource("1_6dj4t")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1469308597]
@@ -317,6 +318,7 @@ position = Vector2(0, -10)
 shape = SubResource("CircleShape2D_14cdr")
 
 [node name="Slime_hitbox" type="Area2D" parent="." unique_id=1480721321]
+collision_layer = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Slime_hitbox" unique_id=1295680869]
 position = Vector2(1, -20)

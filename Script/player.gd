@@ -2,11 +2,12 @@ extends CharacterBody2D
 
 var attack_range = false
 var cooldown = true
-var health = 100
+var health = 3
 var player_status = true
 var attack_ip = false
-	
+
 @export var speed = 150 
+@export var arrow : PackedScene
 @onready var Animation_sprite = $AnimatedSprite2D
 var animation_status = ""
 
@@ -22,33 +23,52 @@ func _physics_process(delta):
 		print("player died")
 		self.queue_free()
 func player_movement(delta):
-	if Input.is_action_pressed("Down"):
+	if Input.is_action_pressed("attack") and not attack_ip:
+		attack_ip = true
+		velocity.x = 0
+		velocity.y = 0
+		shoot()
+		if animation_status == "down":
+			Animation_sprite.play("Attack_down")
+		elif animation_status == "up":
+			Animation_sprite.play("Attack_up")
+		elif animation_status == "right":
+			Animation_sprite.flip_h = false
+			Animation_sprite.play("Attack_side")
+		elif animation_status == "left":
+			Animation_sprite.flip_h = true
+			Animation_sprite.play("Attack_side")
+	elif attack_ip:
+		move_and_slide()
+		return
+		
+	elif Input.is_action_pressed("Down"):
 		velocity.y = speed
 		velocity.x = 0
 		Animation_sprite.play("Walk_down")
 		animation_status = "down"
+		
 	elif Input.is_action_pressed("Left"):
 		velocity.x = -speed
 		velocity.y = 0
 		Animation_sprite.flip_h = true
 		Animation_sprite.play("Walk_side")
 		animation_status = "left"
+		
 	elif Input.is_action_pressed("Up"):
 		velocity.y = -speed
 		velocity.x = 0
 		Animation_sprite.play("Walk_up")
 		animation_status = "up"
+		
 	elif Input.is_action_pressed("Right"):
 		velocity.x = speed
 		velocity.y = 0
 		Animation_sprite.flip_h = false
 		Animation_sprite.play("Walk_side")
 		animation_status = "right"
-	elif Input.is_action_just_pressed("attack"):
-		velocity.x = 0
-		velocity.y = 0
-		Animation_sprite.play("Attack_down")
-		
+	
+
 	else:
 		velocity.x = 0
 		velocity.y = 0
@@ -79,7 +99,7 @@ func _on_player_hitbox_body_exited(body):
 func slime_attack():
 	if attack_range and cooldown == true:
 		print("damage taken")
-		health -= 20
+		health -= 1
 		$Attack_cd.start()
 		print(health)
 		cooldown = false	
@@ -87,3 +107,20 @@ func slime_attack():
 
 func _on_attack_cd_timeout():
 	cooldown = true
+
+
+func _on_animated_sprite_2d_animation_finished():
+	if attack_ip:
+		attack_ip = false
+func shoot():
+	var projectile = arrow.instantiate()
+	if animation_status == "down":
+		projectile.direction = Vector2(0, 1)
+	if animation_status == "up":
+		projectile.direction = Vector2(0, -1)
+	if animation_status == "right":
+		projectile.direction = Vector2(1, 0)
+	if animation_status == "left":
+		projectile.direction = Vector2(-1, 0)
+	projectile.position = self.global_position
+	get_tree().current_scene.add_child(projectile)

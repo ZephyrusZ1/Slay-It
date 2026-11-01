@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dnpjhbbneudj4"]
+
+[ext_resource type="Texture2D" uid="uid://cbn7ucuvh0fmf" path="res://Assets/Objects/arrow_01b.png" id="1_4jj06"]
+[ext_resource type="Script" uid="uid://bany1wo2irsii" path="res://Script/arrow.gd" id="1_wj6t2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_htemk"]
+radius = 5.0
+height = 18.0
+
+[node name="Arrow" type="Area2D" unique_id=499263626]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_wj6t2")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=901699309]
+position = Vector2(14.999999, -8.999999)
+rotation = 0.77318084
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_4jj06")
+offset = Vector2(-12, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=960274665]
+position = Vector2(0, -10)
+shape = SubResource("CapsuleShape2D_htemk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
