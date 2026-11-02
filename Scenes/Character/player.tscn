@@ -617,6 +617,7 @@ position = Vector2(1, -17)
 shape = SubResource("CircleShape2D_q4lci")
 
 [node name="Attack_cd" type="Timer" parent="." unique_id=929598132]
+wait_time = 2.0
 
 [node name="Proj_origin" type="Marker2D" parent="." unique_id=330459302]
 position = Vector2(1, -16)

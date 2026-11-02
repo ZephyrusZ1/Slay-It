@@ -10,7 +10,7 @@ var player_inattack_zone = false
 
 func _ready():
 	slime_animation.play("idle_down")
-	
+	slime()
 func _physics_process(delta):
 	death()
 	if player_chase == true and player != null:
@@ -45,7 +45,8 @@ func _on_detection_area_body_exited(body):
 		player_chase = false
 
 
-
+func slime():
+	pass
 func _on_slime_hitbox_body_entered(body):
 	if body.has_method("player"):
 		player_inattack_zone = true

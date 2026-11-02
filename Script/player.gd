@@ -6,7 +6,7 @@ var health = 3
 var player_status = true
 var attack_ip = false
 var player_input = false
-@export var speed = 150 
+@export var speed = 200 
 @export var arrow : PackedScene
 @onready var Animation_sprite = $AnimatedSprite2D
 var animation_status = "down"
@@ -24,12 +24,10 @@ func _physics_process(delta):
 	player_movement(delta)
 	slime_attack()
 	
-	if health <= 0:
-		player_status = false
-		health = 0
-		print("player died")
-		self.queue_free()
+	
 func player_movement(delta):
+	if player_input == false:
+		return
 	if Input.is_action_pressed("attack") and not attack_ip:
 		attack_ip = true
 		velocity.x = 0
@@ -108,10 +106,18 @@ func slime_attack():
 	if attack_range and cooldown == true:
 		print("damage taken")
 		health -= 1
+		update_health()
 		$Attack_cd.start()
 		print(health)
-		cooldown = false	
-
+		cooldown = false
+		if health <= 0:
+			player_status = false
+			health = 0
+			update_health()
+			player_input = false
+			hide()
+			get_tree().call_group("Main", "Game_Over")
+		
 
 func _on_attack_cd_timeout():
 	cooldown = true
@@ -139,3 +145,4 @@ func reset_player():
 	health = 3
 	player_input = true
 	visible = true
+	update_health()

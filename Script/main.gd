@@ -13,6 +13,7 @@ var max_x = 528
 var min_y = 0
 var max_y = 288
 func _ready():
+	add_to_group("Main")
 	if hud != null:
 		hud.start_game.connect(_on_game_started)
 		hud.update_wave_count(0)
@@ -49,7 +50,14 @@ func _on_spawn_timer_timeout():
 		var random_y = randf_range(min_y, max_y)
 		var slime = slime_scene.instantiate()
 		slime.global_position = Vector2(random_x, random_y)
-		call_deferred("add_child", slime)
+		slime.add_to_group("Slimes")
+		add_child(slime)
 		enemies_spawned += 1
 		if enemies_spawned >= waves[current_wave]:
 			spawn_timer.stop()
+func Game_Over():
+	spawn_timer.stop()
+	set_process(false)
+	
+	if hud != null:
+		hud.game_over()

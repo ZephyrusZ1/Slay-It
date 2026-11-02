@@ -15,3 +15,7 @@ func update_wave_count(wave_number):
 func show_game_over():
 	wave_counter.text = "Game Over!"
 	start_button.show()
+	
+func game_over():
+	wave_counter.text = "Game Over!"
+	start_button.show()
