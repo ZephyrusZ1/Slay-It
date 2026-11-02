@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://g8j7r5oxpt0l"]
+
+[ext_resource type="Script" uid="uid://ppqj3l27w1t1" path="res://Script/hud.gd" id="1_15n47"]
+
+[node name="HUD" type="CanvasLayer" unique_id=1041193318]
+script = ExtResource("1_15n47")
+
+[node name="Start_Button" type="Button" parent="." unique_id=28410170]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.0
+offset_top = -15.5
+offset_right = 28.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+text = "START"
+
+[node name="Wave_counter" type="Label" parent="." unique_id=304238325]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+text = "0"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="Start_Button" to="." method="_on_start_button_pressed"]

@@ -308,7 +308,6 @@ offset = Vector2(0, -14)
 
 [node name="detection_area" type="Area2D" parent="." unique_id=46333356]
 collision_layer = 3
-collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="detection_area" unique_id=1596644052]
 shape = SubResource("CircleShape2D_htemk")

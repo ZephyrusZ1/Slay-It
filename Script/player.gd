@@ -5,14 +5,21 @@ var cooldown = true
 var health = 3
 var player_status = true
 var attack_ip = false
-
+var player_input = false
 @export var speed = 150 
 @export var arrow : PackedScene
 @onready var Animation_sprite = $AnimatedSprite2D
-var animation_status = ""
-
+var animation_status = "down"
+@onready var shoot_point = $Proj_origin
+var min_x = 0
+var min_y = 0
+var max_x = 528
+var max_y = 288
+@onready var health_status = $CanvasLayer/Health
 func _ready():
-	pass
+	add_to_group("Player")
+	player()
+	update_health()
 func _physics_process(delta):
 	player_movement(delta)
 	slime_attack()
@@ -83,7 +90,8 @@ func player_movement(delta):
 			Animation_sprite.play("Idle_side")
 			Animation_sprite.flip_h = true
 	move_and_slide()
-	
+	global_position.x = clamp(global_position.x, min_x, max_x)
+	global_position.y = clamp(global_position.y, min_y, max_y)
 
 
 
@@ -108,7 +116,8 @@ func slime_attack():
 func _on_attack_cd_timeout():
 	cooldown = true
 
-
+func player():
+	pass
 func _on_animated_sprite_2d_animation_finished():
 	if attack_ip:
 		attack_ip = false
@@ -122,5 +131,11 @@ func shoot():
 		projectile.direction = Vector2(1, 0)
 	if animation_status == "left":
 		projectile.direction = Vector2(-1, 0)
-	projectile.position = self.global_position
+	projectile.position = shoot_point.global_position
 	get_tree().current_scene.add_child(projectile)
+func update_health():
+	health_status.text = "Player Health: " + str(health)
+func reset_player():
+	health = 3
+	player_input = true
+	visible = true

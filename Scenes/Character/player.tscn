@@ -618,6 +618,15 @@ shape = SubResource("CircleShape2D_q4lci")
 
 [node name="Attack_cd" type="Timer" parent="." unique_id=929598132]
 
+[node name="Proj_origin" type="Marker2D" parent="." unique_id=330459302]
+position = Vector2(1, -16)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1823219512 groups=["Player"]]
+
+[node name="Health" type="Label" parent="CanvasLayer" unique_id=825218282]
+offset_right = 40.0
+offset_bottom = 23.0
+
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="area_entered" from="Player_hitbox" to="." method="_on_player_hitbox_area_entered"]
 [connection signal="body_entered" from="Player_hitbox" to="." method="_on_player_hitbox_body_entered"]

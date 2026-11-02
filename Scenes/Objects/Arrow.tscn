@@ -13,14 +13,14 @@ collision_mask = 2
 script = ExtResource("1_wj6t2")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=901699309]
-position = Vector2(14.999999, -8.999999)
-rotation = 0.77318084
+z_index = 1
+position = Vector2(0, 4.7683716e-07)
+rotation = 2.3684118
 scale = Vector2(0.9, 0.9)
 texture = ExtResource("1_4jj06")
-offset = Vector2(-12, 12)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=960274665]
-position = Vector2(0, -10)
+rotation = 1.5707964
 shape = SubResource("CapsuleShape2D_htemk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

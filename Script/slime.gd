@@ -10,13 +10,14 @@ var player_inattack_zone = false
 
 func _ready():
 	slime_animation.play("idle_down")
-	slime()
+	
 func _physics_process(delta):
-	if player_chase == true:
-		death()
+	death()
+	if player_chase == true and player != null:
 		
 		var direction = player.position - position
-		position += (player.position - position) / speed
+		velocity = direction.normalized() * speed
+		move_and_slide()
 		if abs(direction.x) > abs(direction.y):
 			if(player.position.x - position.x) < 0:
 				slime_animation.flip_h = true
@@ -29,18 +30,21 @@ func _physics_process(delta):
 				slime_animation.play("move_up")
 			elif(player.position.y - position.y) > 0:
 				slime_animation.play("move_down")
+	else:
+		velocity = Vector2.ZERO
 func _on_detection_area_body_entered(body):
-	player = body
-	player_chase = true
+	if body.has_method("player"):
+		player = body
+		player_chase = true
 
 
 
 func _on_detection_area_body_exited(body):
-	player = null
-	player_chase = false
+	if body.has_method("player"):
+		player = null
+		player_chase = false
 
-func slime():
-	pass
+
 
 func _on_slime_hitbox_body_entered(body):
 	if body.has_method("player"):
